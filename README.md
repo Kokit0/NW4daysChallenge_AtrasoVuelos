@@ -6,11 +6,11 @@
 Este proyecto se centra en la evaluación y mejora de un modelo de predicción de atrasos de vuelos y su implementación en una interfaz de usuario, con el objetivo de poner a prueba su eficiencia mediante una API REST y un test de estrés.
 
 **Introducción:**
-Durante el desarrollo de este proyecto, se llevaron a cabo diversas tareas de análisis de datos y modelado con el objetivo de predecir atrasos en vuelos. Se exploraron los datos iniciales y se aplicaron varias técnicas de procesamiento, incluyendo la construcción de nuevos atributos y la estandarización de los datos. Además, se probaron varios modelos de aprendizaje automático, se ajustaron hiperparámetros y se evaluaron sus resultados. Este es un notebook de investigación basado en lo creado por Juan y budcó expandir ciertos aproaches que Juan n cubrió, en especial, implementar técnicas distintas en lso modelos utilzados e intepretaciones especificas, se detalla el proceso seguido y se presentan los resultados obtenidos. A modo de guía se sugiere focalizar el Notebook en 3 fases. 
+Durante el desarrollo de este proyecto, se llevaron a cabo diversas tareas de análisis de datos y modelado con el objetivo de predecir atrasos en vuelos. Se exploraron los datos iniciales y se aplicaron varias técnicas de procesamiento, incluyendo la construcción de nuevos atributos y la estandarización de los datos. Además, se probaron varios modelos de aprendizaje automático, se ajustaron hiperparámetros y se evaluaron sus resultados. Este es un notebook de investigación basado en lo creado por Juan y budcó expandir ciertos aproaches que Juan n cubrió, en especial, implementar técnicas distintas en los modelos utilzados e intepretaciones especificas, se detalla el proceso seguido y se presentan los resultados obtenidos. A modo de guía se sugiere focalizar el Notebook en 3 fases. 
 
-* La primera: exploratoria con mpdificaciones en los datos y exposición gráfica simple cmo tablas informativa unicamente.
+* La primera: exploratoria con modificaciones en los datos y exposición gráfica simple como tablas informativa unicamente.
 
-* la seguna modificación y preparación de los datos (técnicas de regularizacion, encoding, PCA ,etc) 
+* la seguna modificación y preparación de los datos (imputación, eliminación, técnicas de regularizacion, encoding, PCA ,etc) 
 
 * y la ultima, probar distintas estratégias con modelos que adhieren mejor aun analisis de clasificación predictorio de caracter preliminar binario como Atraso/no atraso.
 
