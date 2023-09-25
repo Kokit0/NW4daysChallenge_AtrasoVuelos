@@ -1,25 +1,28 @@
+# -*- coding: utf-8 -*-
+
+
 from flask import Flask, request, jsonify
 import joblib
 
-# Cargar el modelo serializado
+# Load the serialized model
 modelo = joblib.load('modelo_xgboost.pkl')
 
-# Crear la aplicación Flask
+# Create the Flask application
 app = Flask(__name__)
 
 @app.route('/predecir_atraso', methods=['POST'])
 def predecir_atraso():
     try:
-        # Obtener datos de entrada en formato JSON
+        # Get input data in JSON format
         datos = request.json
 
-        # Realizar la predicción con el modelo
+        # Make the prediction with the model
         prediccion = modelo.predict([datos])
 
-        # Convertir la predicción a texto ("Atraso" o "No Atraso")
+        # Convert the prediction to text ("Atraso" or "No Atraso")
         etiqueta_prediccion = "Atraso" if prediccion[0] == 1 else "No Atraso"
 
-        # Devolver la respuesta en formato JSON
+        # Return the response in JSON format
         respuesta = {'prediccion': etiqueta_prediccion}
         return jsonify(respuesta)
 
