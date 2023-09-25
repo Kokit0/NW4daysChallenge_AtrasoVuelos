@@ -1,13 +1,15 @@
-# -*- coding: utf-8 -*-
-
 
 from flask import Flask, request, jsonify
 import joblib
+import requests
 
 # Load the serialized model
-modelo = joblib.load('modelo_xgboost.pkl')
+# modelo = joblib.load('modelo_xgboost.pkl') <--- cambia la ruta a tu preferencia
+modelo = joblib.load('E:\\OneDrive\\Documents\\nw4dayschallenge\\NW4daysChallenge_AtrasoVuelos\\modelo_xgboost.pkl') # <--- ruta testeo local
 
-# Create the Flask application
+
+
+# Creamos la Flask app
 app = Flask(__name__)
 
 @app.route('/predecir_atraso', methods=['POST'])
@@ -31,3 +33,4 @@ def predecir_atraso():
 
 if __name__ == '__main__':
     app.run(debug=True)
+

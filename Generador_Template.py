@@ -1,10 +1,10 @@
 
-########################################################################
-#Este es mi Ayudin-Crea-folder structures. versión ultra liviana.#######
-########################################################################
+#########################################################################
+#Este es mi Ayudin-Crea-folder structures. versión ultra liviana. ~Kokke#
+#########################################################################
 
 import os
-
+import requests
 
 # Definir la estructura de carpetas y archivos
 project_structure = {
@@ -93,3 +93,26 @@ with open(app_file_path, 'w') as app_file:
     app_file.write(app_code)
 
 print("Archivo app.py creado con éxito.")
+
+
+
+# URL del archivo CSV en GitHub
+url_csv = "https://github.com/Kokit0/NW4daysChallenge_AtrasoVuelos/raw/main/data/dataset_SCL.csv"
+
+# Directorio donde se encuentra el archivo CSV
+data_directory = os.path.join(project_directory, "data")
+
+# Nombre de archivo CSV
+csv_filename = "dataset_SCL.csv"
+
+# Ruta completa del archivo CSV local
+local_csv_path = os.path.join(data_directory, csv_filename)
+
+# Descargar el archivo CSV desde la URL y guardarlo en la carpeta data
+response = requests.get(url_csv)
+if response.status_code == 200:
+    with open(local_csv_path, 'wb') as file:
+        file.write(response.content)
+    print(f"Archivo {csv_filename} descargado exitosamente!")
+else:
+    print(f"No se pudo descargar el archivo!(Tranquilo. Puedes descargarlo manualmente directo del repositorio!) {csv_filename}. Código de estado: {response.status_code}")
