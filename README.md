@@ -34,7 +34,14 @@ Se probaron varios modelos de aprendizaje automático, incluyendo Regresión Log
 **Resultados:**
 El modelo final de XGBoost con SMOTE y estandarización mostró mejoras significativas en términos de precisión y recall en comparación con los modelos anteriores. El F1-score balanceado indicó un equilibrio razonable entre precision y recall. La precisión general del modelo fue del 82%, aunque la precisión para la clasificación de "Atraso" sigue siendo un área de mejora pero un rfecall de un 0.78 es un buen paso en la dirección correcta.
 
-### Desafíos Enfrentados
+![Métricas XGBoost Clasificación](image-2.png)
+![Métricas XGBoost Clasificación](image-3.png)
+
+**Próximos Pasos del modelo y sus dependencias**
+
+El proyecto se encuentra en una etapa avanzada, y se espera que se completen las tareas pendientes para lograr una solución funcional y eficiente. La implementación de la API REST y la prueba de estrés son muchisimo mas sencillas de implementar y resolver que mejorar la precisión y fitness de un modelo o búsqueda de mejores datos, feature engineering, etc. Por lo que me gustaría completar este proceso y ver como optimizarlo y automatizarlo. Creo que son pasos cruciales para demostrar la capacidad del modelo en un entorno real.
+
+### Desafíos Enfrentados con el modelo
 
 - **Sobreajuste (Overfitting):** Inicialmente, el modelo tenía problemas de sobreajuste, lo que requería ajustes adicionales.
 
@@ -42,23 +49,33 @@ El modelo final de XGBoost con SMOTE y estandarización mostró mejoras signific
 
 - **Limitaciones de Recursos:** Restricciones de hardware y tiempo de procesamiento limitaron la optimización de hiperparámetros y modelos. Mas tiempo o mas recursos hubieran mejorado este resultado.
 
+*(el Jupyter Notebook contiene anotaciones y observaciones mucho mas detalladas sobre el desarrollo, alcances y limitantes de este analisis. ver en `Challenge_NW_MLE_MLOPS_Atraso_vuelos_v2.ipynb`)*
+
+
+
 ## Interfaz de Usuario
 
-Se creó una interfaz de usuario simple en `front.html`, que en teoría permite a los usuarios ingresar información relevante para la predicción, como el operador de vuelo y el mes. Esta interfaz debía de actuar como el punto de entrada para interactuar con el modelo.
+Se creó una interfaz de usuario simple en `front.html`, que en teoría permite a los usuarios ingresar información relevante para la predicción, como el operador de vuelo y el mes. Esta interfaz debía de actuar como el punto de entrada para interactuar con el modelo. en `frontv2.html` construí uno mas avanxzado que budsca hacer lo mismo pero este es un ejemplo de la interfaz de usuario que utilizará mi modelo y cómo los usuarios pueden interactuar con él. Mi idea es que lso usuasrios interactuen seleccionando lso operadores, mes de vuelo, tipo de vvuelo y sigla destino para que el modelo pueda devolverles una idea general de como se comportaría su viaje, con posibilidad de retraso o no y su probabilidad numerica.
+Lo ideal sería poder quizas insertar los atributos de ['OPERA', 'MES', 'TIPOVUELO', 'SIGLADES', 'DIANOM','temporada_alta', 'dif_min', 'periodo_dia'] con nombres mas claros para interacción con el usuario. Algunos pueden ser redundantes (como temprada_alta y MES ya que uno puede describir al otro), pero esto depende de la decisión final de negocio.
 
 ### Pendientes y Pasos Sugeridos
 
 A pesar de los avances, aún quedan tareas por completar para alcanzar la meta final:
 
-1. **Implementación de API REST:** El modelo se exportó y serializó en formato .pkl. Sin embargo, persisten problemas técnicos al intentar conectar el modelo a una API REST. Las pruebas en un entorno local (mi notebook) se han realizado, pero la falta de acceso desde el navegador (distintos fueron probados) podría estar relacionada con limitaciones del dispositivo utilizado. Es posible que se requieran configuraciones más avanzadas de computación que están fuera del alcance de este proyecto inicial. Si yo dispusiera de un dispositivo más moderno, se esperaría una implementación exitosa de la API REST. De seguro.
+1. **Implementación de API REST:** El modelo se exportó y serializó en formato .pkl. Sin embargo, persisten problemas técnicos al intentar conectar el modelo a una API REST. Las pruebas en un entorno local (mi notebook) se han realizado, pero la falta de acceso desde el navegador (distintos fueron probados) podría estar relacionada con limitaciones propias de mi notebook. Una limitación imprevista. Es posible que se requieran configuraciones en dispositivos preparados para este tipo de procesos más avanzados. Si yo dispusiera de un dispositivo más moderno, se esperaría una implementación exitosa de la API REST. Creé un mockup del README.md de como podria ser el archivo para que un usuario ejecute el proyecto ya en modo funcional. este qued´po guardado como MockupReadme.md.
 
-2. **Prueba de Estrés (Stress Test):** Se avanzó en inicializar las herramientas de prueba de estrés utilizando herramientas como [wrk](https://github.com/wg/wrk) para evaluar el rendimiento del sistema bajo una alta carga, con el objetivo de procesar eficientemente al menos 50,000 solicitudes en 45 segundos. Mont´pe le modelo en uin postman para forzar lso reauests pero sin acceso desde mi computador al puerto  'http://127.0.0.1:5000/predecir_atraso' que diseñé en la app.py,, no pujedo hacer la validación del funcxionamiento dle modelo. lamentablemente. ME encantar´pia contarcon el apoyo de alguien mas experto en diseño de sistemas infraestructura a este nivel para verificar su correcto funcionamiento. 
 
-3. **Despliegue en la Nube:** Idealmente, se consideraría desplegar la aplicación en una plataforma en la nube para garantizar su disponibilidad y escalabilidad. Enlo personal, puedo manejar SageMaker, Elastic (de AWS) y he desarrollado pruebas de concepto con Azure web pero me limitan los costos para probar la eficiencia del modelo una vesm ontado y no dispngo de credito para ejecutar tales cloud deployment.
+2. **Prueba de Estrés (Stress Test):** Se avanzó en inicializar las herramientas de prueba de estrés utilizando herramientas como [wrk](https://github.com/wg/wrk) para evaluar el rendimiento del sistema bajo una alta carga, con el objetivo de procesar eficientemente al menos 50,000 solicitudes en 45 segundos. Monté el request en un Postman https://web.postman.co/  para forzar los requests pero sin acceso desde mi computador al puerto  'http://127.0.0.1:5000/predecir_atraso' que diseñé en la app.py por lo que no se logra aun hacer la validación del funcionamiento del modelo en local. 
 
-## Próximos Pasos
+Si se logró hacer un "handshake" entre Postman y mi servidor local desde el software en linea usando  http://127.0.0.1:5000/predecir_atraso con un breve codigo el cual retornó exitosamente.
 
-El proyecto se encuentra en una etapa avanzada, y se espera que se completen las tareas pendientes para lograr una solución funcional y eficiente. La implementación de la API REST y la prueba de estrés son muchisimo mas sencillas de implementar y resolver que mejorar la precisión y fitness de un modelo o búsqueda de mejores datos, feature engineering, etc. Por lo que me gustaría completar este proceso y ver como optimizarlo y automatizarlo. Creo que son pasos cruciales para demostrar la capacidad del modelo en un entorno real.
+![Hand shake proof](image-1.png)
+
+![Postman recibiendo/enviando requests](image.png) 
+
+Esto nos indica que la configuración posterior necesaria para las pruebas de restfull API y capacidad de carga del modelo en Cloud está algunos pasos mas adelante nomas. Sería genial extener mas esta investigación con algun colega mas Senior en diseño de sistemas infraestructura a este nivel para verificar su correcto funcionamiento pero logramos operar con éxito hasta esta instancia. 
+
+3. **Despliegue en la Nube:** Idealmente, se consideraría desplegar la aplicación en una plataforma en la nube para garantizar su disponibilidad y escalabilidad. Enlo personal, puedo manejar SageMaker, Elastic (de AWS) y he desarrollado pruebas de concepto con Azure web pero me limitan los costos para probar la eficiencia del modelo una ves montado y no dispongo de credito para ejecutar tales cloud deployment. Tambien cuento con un proyecto End to End e MLFlow que da muestra de mejor diseño del sistema de carpetas, uso de scripts para reconstruir automatizadamente los requerimientos del modelo que se esté construyendo y desplegando , CI/CDI con su Pipeline, config.yaml, params.yaml (check de parametros correctos de las features previo validación) e input / output para los productos genrados. Espero mejorarlo para exponerlo en breve.
 
 
 **Conclusión:**
@@ -75,10 +92,20 @@ En resumen, este proyecto involucró un proceso completo de exploración, prepro
 **Duración del Proyecto:**
 El proyecto se realizó en un total de aproximadamente 8-9 horas distribuidas en varias sesiones de trabajo a lo largo de 4 días efectivos.
 
-# cómo lo corremos?
-### PASOS:
+## WORKFLOW:
 
-Clonemos el repository
+* instalar IDE/herramientas de preferencia (VSCode, Pycharm, etc)
+    * PyCharm    - https://www.jetbrains.com/es-es/pycharm/
+    * VSCode (studio) - https://code.visualstudio.com/
+    * Anaconda navigator - https://docs.anaconda.com/free/navigator/index.html
+    * Postman (optional) - https://www.postman.com/
+    * Git BASH (optional) - https://git-scm.com/downloads
+
+* clonar git
+* Activar Entorno (env)
+* ejecutar `Generador_Template.py`
+* Dependencias `requirements.txt`
+### Clonemos el repository
 
 ```bash
 https://github.com/Kokit0/NW4daysChallenge_AtrasoVuelos.git
@@ -89,18 +116,16 @@ https://github.com/Kokit0/NW4daysChallenge_AtrasoVuelos.git
 ```bash
 python -m venv NWMLEMLOPSenv
 ```
-#### Recuerda activar tu entorno!
+#### Recuerda activar tu entorno.
 ```bash
 NWMLEMLOPSenv/Scripts/activate
 ```
-
 ### Instalar dependencias
-Estas son dependencias basales para correr el modelo desde un repositorio con u sistema de folder y files mas  desarrollado. para ver el modelo en ejecución en modo prueba, lo mas simple es activar un entorno y verlo directamente en el .ipynb E:\OneDrive\Documents\nw4dayschallenge\NW4daysChallenge_AtrasoVuelos\notebooks\Challenge_NW_MLE_MLOPS_Atraso_vuelos_v2.ipynb 
+Estas son dependencias basales para correr el modelo desde un repositorio con u sistema de folder y files mas  desarrollado. para ver el modelo en ejecución en modo prueba, lo mas simple es activar un entorno y verlo directamente en el .ipynb https://github.com/Kokit0/NW4daysChallenge_AtrasoVuelos/blob/main/notebooks/Challenge_NW_MLE_MLOPS_Atraso_vuelos_v2.ipynb
 
 ```
 pip install -r .\requirements.txt
 ```
-
 ### Ejecutar generador_Templado.py (si deseas una instancia limpia custom)
 Este templado es una herramienta quer cree para generar el sistema decarpetas inicial sobre le cual sep uede iterar en el mismo reposssitorio copiado en su propia IDE. es solamente un headstart y permite comenxzar a organisar el repositorio para mayores systematizaciones. En otro ptroyecto qu estoy desarrollando en paralelo a este, he creado un end to end con MLFlow que explora mucho mas a fondo la generación de estos templados de kickstart. por ahora lo usaré como prueba de concepto funcional.
 
@@ -117,5 +142,20 @@ https://github.com/Kokit0/NW4daysChallenge_AtrasoVuelos/raw/main/data/dataset_SC
 python app.py
 ```
 
-## Interfaz de Usuario
+________________________________________________________________
+## otros no relevantes pero parte del proceso de exploración y construcción de este Repositorio
 
+* Construí algunos archivos intermediarios quem e sirvieron para verificar funcionalidades a lo alrgo del proceso, desde versiones de calling (handshake entre servidor e instancia local) para Postman `HandShakeTestapp.py`. Este simplemente al ser montado, genera un calculo gausseano lo que prueba que el poder de calculo es viable desde esta plataforma. 
+
+* Lo mismo con los `frontv1.html` que no son de utilidad en el esquema del sistema de archivos de este repositorio pero si paso intermedio para el desarrollo del diseño inicial del .html para la pagina que el usuario podría utilizar. 
+
+* además, está `Research_notebook01.ipynb` que es un placeholder que genero automaticamente con mi `Generador_Templado.py`. Este notebook es el automático genrado sobre el que fui trabajando el modelo final.No tiene ocntenido y solo lo dejo en el repositorio como evidencia de su funcionalidad y potencialidad al ejecutar este archivo .py.
+
+* Por último, se decidió no realizar control de versiones estrictos, ya que todo el desarrollo inicial consistió en diseñar el Jupyter Notebook, explorar el objetivo del desafío y luego redactar el generador templado que luego se pobló directamente con los archivos. Se realizaron commits y push de todos los archivos a medida que fueron realizados, pero no se requirió de branching debido a que se trató de ejecuciones en frío sin necesidad de pruebas en vivo por parte del sistema de control de versiones. En `InfoReadme.md` dejo información de contacto y minimas instrucciones de run del repositorio funcional como mockup.
+
+
+________________________________________________________________
+
+## Licencia
+
+Este proyecto está bajo la licencia [Licencia MIT]. Puedes consultar el archivo [LICENSE.md] para obtener más detalles.

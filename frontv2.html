@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Predicción de Atraso de Vuelo</title>
+</head>
+
+<body>
+    <h1>Predicción de Atraso de Vuelo</h1>
+    <form id="prediction-form">
+        <!-- Agrega un campo de selección para los atributos -->
+        <label for="atributo">Seleccione un atributo:</label>
+        <select id="atributo" name="atributo">
+            <option value="OPERA">Operador de Vuelo</option>
+            <option value="MES">Mes de Vuelo</option>
+            <option value="TIPOVUELO">Tipo de Vuelo</option>
+            <option value="SIGLADES">Sigla del Destino</option>
+            <!-- Agrega más opciones para otros atributos -->
+        </select>
+        <br><br>
+
+        <!-- Campo para el valor del atributo -->
+        <label for="valor">Valor del atributo:</label>
+        <input type="text" id="valor" name="valor" required><br><br>
+
+        <button type="button" onclick="predictAtraso()">Predecir Atraso</button>
+    </form>
+
+    <div id="prediction-result"></div>
+
+    <script>
+        function predictAtraso() {
+            // Captura de los valores de los campos de entrada
+            var atributo = document.getElementById("atributo").value;
+            var valor = document.getElementById("valor").value;
+
+            // Envíar los datos al servidor Flask
+            fetch('/predecir_atraso', {
+                method: 'POST',
+                body: JSON.stringify({
+                    atributo: atributo,
+                    valor: valor
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Muestra la predicción en la página
+                    var resultDiv = document.getElementById("prediction-result");
+                    resultDiv.innerHTML = "Predicción: " + data.prediccion;
+                    // Incluir idealmente la probabilidad
+                });
+        }
+    </script>
+</body>
+
+</html>

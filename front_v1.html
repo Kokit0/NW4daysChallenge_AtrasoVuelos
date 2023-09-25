@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Predicción de Atraso de Vuelo</title>
+</head>
+<body>
+    <h1>Predicción de Atraso de Vuelo</h1>
+    <form id="prediction-form">
+        <label for="OPERA">Operador de Vuelo:</label>
+        <input type="text" id="OPERA" name="OPERA" required><br><br>
+        
+        <!-- Campo para Mes de Vuelo -->
+        <label for="MES">Mes de Vuelo:</label>
+        <input type="text" id="MES" name="MES" required><br><br>
+        
+        <!-- Agregar aquí campos para otros atributos -->
+        
+        <button type="button" onclick="predictAtraso()">Predecir Atraso</button>
+    </form>
+    
+    <div id="prediction-result"></div>
+
+    <script>
+        function predictAtraso() {
+            // Captura de los valores de los campos de entrada
+            var OPERA = document.getElementById("OPERA").value;
+            var MES = document.getElementById("MES").value;
+            // Captura de los demás valores de entrada
+            
+            // Envíar los datos al servidor Flask
+            fetch('/predecir_atraso', {
+                method: 'POST',
+                body: JSON.stringify({
+                    OPERA: OPERA,
+                    MES: MES,
+                    // Incluiré aquí los demás atributos
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Muestra la predicción en la página
+                var resultDiv = document.getElementById("prediction-result");
+                resultDiv.innerHTML = "Predicción: " + data.prediccion;
+                // ME falta Incluir laa probabilidad!
+            });
+        }
+    </script>
+</body>
+</html>

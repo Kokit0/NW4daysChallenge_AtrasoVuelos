@@ -1,31 +1,35 @@
-
 from flask import Flask, request, jsonify
 import joblib
 import requests
 
 # Load the serialized model
-# modelo = joblib.load('modelo_xgboost.pkl') <--- cambia la ruta a tu preferencia
-modelo = joblib.load('E:\\OneDrive\\Documents\\nw4dayschallenge\\NW4daysChallenge_AtrasoVuelos\\modelo_xgboost.pkl') # <--- ruta testeo local
+modelo = joblib.load('E:\\OneDrive\\Documents\\nw4dayschallenge\\NW4daysChallenge_AtrasoVuelos\\modelo_xgboost.pkl')
 
-
-
-# Creamos la Flask app
+# Crear la Flask app
 app = Flask(__name__)
 
 @app.route('/predecir_atraso', methods=['POST'])
 def predecir_atraso():
     try:
-        # Get input data in JSON format
+        # Obtener los datos de entrada en formato JSON
         datos = request.json
 
-        # Make the prediction with the model
-        prediccion = modelo.predict([datos])
+        # Asegúrate de que los nombres coincidan con los campos del DataFrame de entrada
+        OPERA = datos.get('OPERA')
+        MES = datos.get('MES')
+        TIPOVUELO = datos.get('TIPOVUELO')
+        # Agregaría aquí los demás atributos
 
-        # Convert the prediction to text ("Atraso" or "No Atraso")
-        etiqueta_prediccion = "Atraso" if prediccion[0] == 1 else "No Atraso"
+        # Realizar la predicción con el modelo
+        # Por ejemplo, podría pasar estos atributos al modelo para obtener la predicción
+        #prediccion = modelo.predict([['OPERA', 'MES', 'TIPOVUELO']])
 
-        # Return the response in JSON format
-        respuesta = {'prediccion': etiqueta_prediccion}
+        # Convertir la predicción a texto ("Atraso" o "No Atraso")
+        # etiqueta_prediccion = "Atraso" if prediccion[0] == 1 else "No Atraso"
+
+        # Devolver la respuesta en formato JSON
+        # respuesta = {'prediccion': etiqueta_prediccion}
+        respuesta = {'OPERA': OPERA, 'MES': MES, 'TIPOVUELO': TIPOVUELO}  # Algo así haría
         return jsonify(respuesta)
 
     except Exception as e:
@@ -33,4 +37,3 @@ def predecir_atraso():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
