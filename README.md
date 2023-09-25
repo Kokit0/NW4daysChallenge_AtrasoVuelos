@@ -32,7 +32,7 @@ Para abordar los desafíos, se realizaron los siguientes pasos:
 Se probaron varios modelos de aprendizaje automático, incluyendo Regresión Logística, SVM, y XGBoost. Se realizaron ajustes de hiperparámetros y se aplicaron técnicas de regularización como Lasso y Ridge junto a tunning se sus distintas estratégias para optimizar timepo de procesamiento y resultado esperado. Además, se utilizó la técnica de sobremuestreo SMOTE para abordar el desequilibrio de clases.
 
 **Resultados:**
-El modelo final de XGBoost con SMOTE y estandarización mostró mejoras significativas en términos de precisión y recall en comparación con los modelos anteriores. El F1-score balanceado indicó un equilibrio razonable entre precision y recall. La precisión general del modelo fue del 82%, aunque la precisión para la clasificación de "Atraso" sigue siendo un área de mejora pero un rfecall de un 0.78 es un buen paso en la dirección correcta.
+El modelo final de XGBoost con SMOTE y estandarización mostró mejoras significativas en términos de precisión y recall en comparación con los modelos anteriores. El F1-score balanceado indicó un equilibrio razonable entre precision y recall. La precisión general del modelo fue del 82%, aunque la precisión para la clasificación de "Atraso" sigue siendo un área de mejora pero un recall de un 0.78 es un buen paso en la dirección correcta.
 
 ![Métricas XGBoost Clasificación](image-2.png)
 ![Métricas XGBoost Clasificación](image-3.png)
