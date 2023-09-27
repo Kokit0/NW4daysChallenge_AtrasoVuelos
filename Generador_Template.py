@@ -9,7 +9,7 @@ import requests
 # Definir la estructura de carpetas y archivos
 project_structure = {
     'app.py': None,
-    'modelo_xgboost.pkl': None,
+    'VACIOmodelo_xgboost.pkl': None,
     'requirements.txt': None,
     'api': {
         '__init__.py': None,
