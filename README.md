@@ -62,7 +62,7 @@ Lo ideal sería poder quizas insertar los atributos de ['OPERA', 'MES', 'TIPOVUE
 
 A pesar de los avances, aún quedan tareas por completar para alcanzar la meta final:
 
-1. **Implementación de API REST:** El modelo se exportó y serializó en formato .pkl. Sin embargo, persisten problemas técnicos al intentar conectar el modelo a una API REST. Las pruebas en un entorno local (mi notebook) se han realizado, pero la falta de acceso desde el navegador (distintos fueron probados) podría estar relacionada con limitaciones propias de mi notebook. Una limitación imprevista. Es posible que se requieran configuraciones en dispositivos preparados para este tipo de procesos más avanzados. Si yo dispusiera de un dispositivo más moderno, se esperaría una implementación exitosa de la API REST. Creé un mockup del README.md de como podria ser el archivo para que un usuario ejecute el proyecto ya en modo funcional. este qued´po guardado como MockupReadme.md.
+1. **Implementación de API REST:** El modelo se exportó y serializó en formato .pkl. Sin embargo, persisten problemas técnicos al intentar conectar el modelo a una API REST. Las pruebas en un entorno local (mi notebook) se han realizado, pero la falta de acceso desde el navegador (distintos fueron probados) podría estar relacionada con limitaciones propias de mi notebook. Una limitación imprevista. Es posible que se requieran configuraciones en dispositivos preparados para este tipo de procesos más avanzados. Si yo dispusiera de un dispositivo más moderno, se esperaría una implementación exitosa de la API REST. Creé un mockup del README.md de como podria ser el archivo para que un usuario ejecute el proyecto ya en modo funcional. este quedó guardado como InfoReadme.md.
 
 
 2. **Prueba de Estrés (Stress Test):** Se avanzó en inicializar las herramientas de prueba de estrés utilizando herramientas como [wrk](https://github.com/wg/wrk) para evaluar el rendimiento del sistema bajo una alta carga, con el objetivo de procesar eficientemente al menos 50,000 solicitudes en 45 segundos. Monté el request en un Postman https://web.postman.co/  para forzar los requests pero sin acceso desde mi computador al puerto  'http://127.0.0.1:5000/predecir_atraso' que diseñé en la app.py por lo que no se logra aun hacer la validación del funcionamiento del modelo en local. 
@@ -71,15 +71,15 @@ Si se logró hacer un "handshake" entre Postman y mi servidor local desde el sof
 
 ![Hand shake proof](image-1.png)
 
-![Postman recibiendo/enviando requests](image.png) 
+![Postman recibiendo/enviando requests - Satus 200 OK en Verde](image.png) 
 
-Esto nos indica que la configuración posterior necesaria para las pruebas de restfull API y capacidad de carga del modelo en Cloud está algunos pasos mas adelante nomas. Sería genial extener mas esta investigación con algun colega mas Senior en diseño de sistemas infraestructura a este nivel para verificar su correcto funcionamiento pero logramos operar con éxito hasta esta instancia. 
+Esto nos indica que la configuración posterior necesaria para las pruebas de restfull API y capacidad de carga del modelo en Cloud está algunos pasos mas adelante nomas. Sería genial extender mas esta investigación con soporte de algun colega mas Senior en diseño de Redes y Sistemas Infraestructura a este nivel para verificar su correcto funcionamiento pero, so far, logramos operar con éxito hasta esta instancia. 
 
-3. **Despliegue en la Nube:** Idealmente, se consideraría desplegar la aplicación en una plataforma en la nube para garantizar su disponibilidad y escalabilidad. Enlo personal, puedo manejar SageMaker, Elastic (de AWS) y he desarrollado pruebas de concepto con Azure web pero me limitan los costos para probar la eficiencia del modelo una ves montado y no dispongo de credito para ejecutar tales cloud deployment. Tambien cuento con un proyecto End to End e MLFlow que da muestra de mejor diseño del sistema de carpetas, uso de scripts para reconstruir automatizadamente los requerimientos del modelo que se esté construyendo y desplegando , CI/CDI con su Pipeline, config.yaml, params.yaml (check de parametros correctos de las features previo validación) e input / output para los productos genrados. Espero mejorarlo para exponerlo en breve.
+3. **Despliegue en la Nube:** Idealmente, se consideraría desplegar la aplicación en una plataforma en la nube para garantizar su disponibilidad y escalabilidad. En lo personal, puedo manejar SageMaker, Elastic (de AWS) y he desarrollado pruebas de concepto con Azure web pero me limitan los costos para probar la eficiencia del modelo una ves montado y no dispongo de credito para ejecutar tales cloud deployment. Tambien cuento con un proyecto End to End e MLFlow que da muestra de mejor diseño del sistema de carpetas (que pseudo-ilustré con mi Generador_Template.py) creando el entorno de folders fudacional para que un modelo persista, uso de scripts para reconstruir automatizadamente los requerimientos del modelo que se esté construyendo y desplegando , CI/CDI con su Pipeline, config.yaml, params.yaml (check de parametros correctos de las features previo validación) e input / output para los productos generados siendo guardados en folders como Constants, Components y Artifacts. Espero mejorarlo para exponerlo en breve.
 
 
 **Conclusión:**
-En resumen, este proyecto involucró un proceso completo de exploración, preprocesamiento y modelado de datos para predecir atrasos en vuelos. Hubo varios cambios de dirección en su desarrollo, como la prueba con otros modelos que no se adjuntaron por entregar nulo valor analítico. pero sirvió como referencia y descarte del tipo de objetivo del analisis y el tipo de variables en juego. Si bien con XGboost se lograron mejoras notables en la precisión y el recall luego de realizar multiples ocmvbinaciones de otras técnicas y 'tuneo', todavía existen oportunidades para ajustes adicionales y mejoras en la detección de atrasos. como ejercicio y mqueteo, el proyecto representa un avance significativo en la dirección correcta y sienta las bases para futuros desarrollos y refinamientos una ves se seleccione un dataset de optima calidad y un objetivo conciso a explorar bajo los algoritmos preliminares.
+En resumen, este proyecto involucró un proceso completo de exploración, preprocesamiento y modelado de datos para predecir atrasos en vuelos. Hubo varios cambios de dirección en su desarrollo, como la prueba con otros modelos que no se adjuntaron por entregar nulo valor analítico. pero sirvió como referencia y descarte del tipo de objetivo del analisis y el tipo de variables en juego. Si bien con XGboost se lograron mejoras notables en la precisión y el recall luego de realizar multiples combinaciones de otras técnicas y 'tuneo', todavía existen oportunidades para ajustes adicionales y mejoras en la detección de atrasos. Como ejercicio y 'maqueteo', el proyecto representa un avance significativo en la dirección correcta y sienta las bases para futuros desarrollos y refinamientos, claro está, una ves se seleccione un dataset definitivo optimo y balanceado y un objetivo conciso a explorar bajo los algoritmos preliminares.
 
 **Librerías Claves Utilizadas:**
 - Pandas
@@ -121,19 +121,19 @@ python -m venv NWMLEMLOPSenv
 NWMLEMLOPSenv/Scripts/activate
 ```
 ### Instalar dependencias
-Estas son dependencias basales para correr el modelo desde un repositorio con u sistema de folder y files mas  desarrollado. para ver el modelo en ejecución en modo prueba, lo mas simple es activar un entorno y verlo directamente en el .ipynb https://github.com/Kokit0/NW4daysChallenge_AtrasoVuelos/blob/main/notebooks/Challenge_NW_MLE_MLOPS_Atraso_vuelos_v2.ipynb
+Estas son dependencias basales para correr el modelo desde un repositorio con su propio sistema de folder y files mas desarrollado. Sugiero antes e generar las carpetas y otros, para ver el modelo en ejecución en modo prueba, lo mas simple es activar pimero un entorno python y verlo directamente en el '.ipynb' https://github.com/Kokit0/NW4daysChallenge_AtrasoVuelos/blob/main/notebooks/Challenge_NW_MLE_MLOPS_Atraso_vuelos_v2.ipynb
 
 ```
 pip install -r .\requirements.txt
 ```
 ### Ejecutar generador_Templado.py (si deseas una instancia limpia custom)
-Este templado es una herramienta quer cree para generar el sistema decarpetas inicial sobre le cual sep uede iterar en el mismo reposssitorio copiado en su propia IDE. es solamente un headstart y permite comenxzar a organisar el repositorio para mayores systematizaciones. En otro ptroyecto qu estoy desarrollando en paralelo a este, he creado un end to end con MLFlow que explora mucho mas a fondo la generación de estos templados de kickstart. por ahora lo usaré como prueba de concepto funcional.
+Este templado es una herramienta quer cree para generar el sistema decarpetas inicial sobre el cual se puede iterar en el mismo repositorio copiado en su propia IDE. Es solamente un headstart y permite comenzar a organisar el repositorio para mayores systematizaciones. En otro ptroyecto qu estoy desarrollando en paralelo a este (https://github.com/Kokit0/End-to-End-MLP-with-MLFlow), he creado un end to end con MLFlow que explora mucho mas a fondo la generación de estos templados de kickstart. por ahora lo usaré como prueba de concepto básica funcional.
 
 ```python
 python Generador_Template.py  
 ```
 
-### Actualizar dataset segun predilección. En nuestro caso utilizaremos 'dataset_SCL.csv'
+### Actualizar dataset segun predilección. En nuestro caso utilizaremos 'dataset_SCL.csv' como el dataset sin limpieza. el Notebook genera un dataset "limpio" con el cual luego se entrenaría el modelo. Para recrear dersde cero: utilizar `dataset_SCL.csv`.
 https://github.com/Kokit0/NW4daysChallenge_AtrasoVuelos/raw/main/data/dataset_SCL.csv
 
 ### Ejecutemos la app Flask (app.py)
@@ -145,13 +145,13 @@ python app.py
 ________________________________________________________________
 ## otros no relevantes pero parte del proceso de exploración y construcción de este Repositorio
 
-* Construí algunos archivos intermediarios quem e sirvieron para verificar funcionalidades a lo alrgo del proceso, desde versiones de calling (handshake entre servidor e instancia local) para Postman `HandShakeTestapp.py`. Este simplemente al ser montado, genera un calculo gausseano lo que prueba que el poder de calculo es viable desde esta plataforma. 
+* Construí algunos archivos intermediarios que me sirvieron para verificar funcionalidades a lo alrgo del proceso, desde versiones de calling (handshake entre servidor e instancia local) para Postman `HandShakeTestapp.py`. Este simplemente al ser montado, genera un calculo gausseano lo que prueba que el poder de calculo es viable desde esta plataforma y la comunicación + computación en nuestra "caja negra" estan ocurriendo exitosamente. 
 
-* Lo mismo con los `frontv1.html` que no son de utilidad en el esquema del sistema de archivos de este repositorio pero si paso intermedio para el desarrollo del diseño inicial del .html para la pagina que el usuario podría utilizar. 
+* Lo mismo con los `frontv1.html` que no son de utilidad en el esquema del sistema de archivos de este repositorio pero si paso intermedio para el desarrollo del diseño inicial del .html para la pagina que con la que el usuario podría interactuar. 
 
-* además, está `Research_notebook01.ipynb` que es un placeholder que genero automaticamente con mi `Generador_Templado.py`. Este notebook es el automático genrado sobre el que fui trabajando el modelo final.No tiene ocntenido y solo lo dejo en el repositorio como evidencia de su funcionalidad y potencialidad al ejecutar este archivo .py.
+* además, está `Research_notebook01.ipynb` que es un placeholder que genero automaticamente con mi `Generador_Templado.py`. Este notebook es el automático generado sobre el que fui trabajando el modelo final. No tiene contenido y solo lo dejo en el repositorio como evidencia de su potencial al automatizar la creación de los file types necesarios para construir un folder system para un modelo de persistencia.
 
-* Por último, se decidió no realizar control de versiones estrictos, ya que todo el desarrollo inicial consistió en diseñar el Jupyter Notebook, explorar el objetivo del desafío y luego redactar el generador templado que luego se pobló directamente con los archivos. Se realizaron commits y push de todos los archivos a medida que fueron realizados, pero no se requirió de branching debido a que se trató de ejecuciones en frío sin necesidad de pruebas en vivo por parte del sistema de control de versiones. En `InfoReadme.md` dejo información de contacto y minimas instrucciones de run del repositorio funcional como mockup.
+* **Version Control** Por último, se decidió no realizar control de versiones estrictos, ya que todo el desarrollo inicial consistió en diseñar el Jupyter Notebook, explorar el objetivo del desafío y luego redactar el generador templado que luego se pobló directamente con los archivos. Se realizaron comandos de `commits y push` de todos los archivos a medida que fueron realizados, pero no se requirió de branching debido a que se trató de ejecuciones en frío sin necesidad de paralelizar labores con control de versiones. En `InfoReadme.md` dejo información de contacto y minimas instrucciones de run del repositorio funcional como mockup.
 
 
 ________________________________________________________________
